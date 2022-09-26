@@ -50,8 +50,24 @@ class ParkCamera extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ElevatedButton(child: const Text('knapp'), onPressed: () {}),
-              ElevatedButton(child: const Text('knopp'), onPressed: () {}),
+              SizedBox(
+                  width: 175,
+                  height: 75,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                        textStyle: const TextStyle(fontSize: 40)),
+                    child: const Text('knapp'),
+                  )),
+              SizedBox(
+                  width: 175,
+                  height: 75,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                        textStyle: const TextStyle(fontSize: 40)),
+                    child: const Text('knopp'),
+                  )),
             ],
           ),
         ));
