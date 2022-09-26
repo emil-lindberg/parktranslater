@@ -41,26 +41,19 @@ class ParkCamera extends StatelessWidget {
   const ParkCamera({super.key});
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      
         appBar: AppBar(
           title: const Text('Park Scanner'),
         ),
-        body: Column(
-
-          children : [
-                Child1: ElevatedButton(
-                Child1: const Text('knapp'),
-                onPressed: () {
-                }),
-                
-                Child2: ElevatedButton(
-                Child2: const Text('knapp'),
-                onPressed: () {
-
-                }),
-        ])
-        );
+        body: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ElevatedButton(child: const Text('knapp'), onPressed: () {}),
+              ElevatedButton(child: const Text('knopp'), onPressed: () {}),
+            ],
+          ),
+        ));
   }
 }
