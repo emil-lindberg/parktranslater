@@ -24,9 +24,8 @@ class AppBarMain extends StatefulWidget {
 }
 
 class _AppBarMainState extends State<AppBarMain> {
-  @override
   State<AppBarMain> createState() => _AppBarMainState();
-
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -66,12 +65,25 @@ class _ParkCameraState extends State<ParkCamera> {
         body: Center(
           child: Column(
             children: [
-              Container(
-                width: 640,
-                height: 480,
-                alignment: Alignment.center,
-                child: const Text('Image will appear here'),
-              ),
+              if (imageFile != null)
+                (Container(
+                  width: 640,
+                  height: 480,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    image: DecorationImage(image: FileImage(imageFile!)),
+                    border: Border.all(width: 8, color: Colors.white),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                ))
+              else
+                (Container(
+                  width: 640,
+                  height: 480,
+                  alignment: Alignment.center,
+                  child: const Text('Image will appear here'),
+                )),
               const SizedBox(
                 height: 20,
               ),
@@ -92,7 +104,8 @@ class _ParkCameraState extends State<ParkCamera> {
                       width: 175,
                       height: 75,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () =>
+                            fetchImage(source: ImageSource.gallery),
                         style: ElevatedButton.styleFrom(
                             textStyle: const TextStyle(fontSize: 30)),
                         child: const Text('Select Picture'),
@@ -104,7 +117,7 @@ class _ParkCameraState extends State<ParkCamera> {
         ));
   }
 
-  void fetchImage({required ImageSource source, imageFile}) async {
+  void fetchImage({required ImageSource source}) async {
     final file = await ImagePicker().pickImage(source: source);
 
     if (file?.path != null) {
