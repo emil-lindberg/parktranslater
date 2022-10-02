@@ -55,9 +55,10 @@ class ParkCamera extends StatefulWidget {
 }
 
 class _ParkCameraState extends State<ParkCamera> {
+  File? imageFile = File(
+      "C:/Users/Emil/Pictures/Saved Pictures/ArcticFoxDiscordLogoSanta.png");
   @override
   Widget build(BuildContext context) {
-    File? imageFile;
     return Scaffold(
         appBar: AppBar(
           title: const Text('Park Scanner'),
@@ -66,17 +67,7 @@ class _ParkCameraState extends State<ParkCamera> {
           child: Column(
             children: [
               if (imageFile != null)
-                (Container(
-                  width: 640,
-                  height: 480,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    image: DecorationImage(image: FileImage(imageFile!)),
-                    border: Border.all(width: 8, color: Colors.white),
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                ))
+                (Container(child: Image.file(imageFile!, fit: BoxFit.cover)))
               else
                 (Container(
                   width: 640,
@@ -118,12 +109,13 @@ class _ParkCameraState extends State<ParkCamera> {
   }
 
   void fetchImage({required ImageSource source}) async {
+    debugPrint("entering fetchimage");
     final file = await ImagePicker().pickImage(source: source);
 
-    if (file?.path != null) {
-      setState(() {
-        imageFile = File(file!.path);
-      });
-    }
+    debugPrint(file?.path);
+    setState(() {
+      imageFile = File(file!.path);
+      debugPrint(imageFile?.path);
+    });
   }
 }
