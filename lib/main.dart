@@ -55,8 +55,7 @@ class ParkCamera extends StatefulWidget {
 }
 
 class _ParkCameraState extends State<ParkCamera> {
-  File? imageFile = File(
-      "C:/Users/Emil/Pictures/Saved Pictures/ArcticFoxDiscordLogoSanta.png");
+  File? imageFile;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,12 +109,10 @@ class _ParkCameraState extends State<ParkCamera> {
 
   void fetchImage({required ImageSource source}) async {
     debugPrint("entering fetchimage");
-    final file = await ImagePicker().pickImage(source: source);
+    final imageFile = await ImagePicker().pickImage(source: source);
 
-    debugPrint(file?.path);
-    setState(() {
-      imageFile = File(file!.path);
-      debugPrint(imageFile?.path);
-    });
+    if (imageFile == null) return;
+    final imageTemp = File(imageFile.path);
+    setState(() => this.imageFile = imageTemp);
   }
 }
