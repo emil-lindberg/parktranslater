@@ -66,7 +66,7 @@ class _ParkCameraState extends State<ParkCamera> {
           child: Column(
             children: [
               if (imageFile != null)
-                (Container(child: Image.file(imageFile!, fit: BoxFit.cover)))
+                (Image.file(imageFile!, fit: BoxFit.cover))
               else
                 (Container(
                   width: 640,
@@ -89,6 +89,27 @@ class _ParkCameraState extends State<ParkCamera> {
                         style: ElevatedButton.styleFrom(
                             textStyle: const TextStyle(fontSize: 30)),
                         child: const Text('Capture Picture'),
+                      )),
+                  SizedBox(
+                      width: 250,
+                      height: 75,
+                      child: IconButton(
+                        icon: const Icon(Icons.navigate_next_rounded),
+                        iconSize: 75,
+                        onPressed: () {
+                          if (imageFile != null) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const AppBarMain()),
+                            );
+                          } else {
+                            setState(() {
+                              _showMyDialog();
+                            });
+                            debugPrint("No Image");
+                          }
+                        },
                       )),
                   SizedBox(
                       width: 175,
@@ -114,5 +135,32 @@ class _ParkCameraState extends State<ParkCamera> {
     if (imageFile == null) return;
     final imageTemp = File(imageFile.path);
     setState(() => this.imageFile = imageTemp);
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('No Image'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('There is no image selected or captured'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
