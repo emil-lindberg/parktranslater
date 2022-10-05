@@ -66,10 +66,11 @@ class _ParkCameraState extends State<ParkCamera> {
           child: Column(
             children: [
               if (imageFile != null)
-                (Image.file(imageFile!, fit: BoxFit.cover))
+                (Image.file(imageFile!,
+                    fit: BoxFit.contain, height: 580, width: 1080))
               else
                 (Container(
-                  width: 640,
+                  width: 300,
                   height: 480,
                   alignment: Alignment.center,
                   child: const Text('Image will appear here'),
@@ -82,17 +83,17 @@ class _ParkCameraState extends State<ParkCamera> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                      width: 175,
-                      height: 75,
+                      width: 100,
+                      height: 50,
                       child: ElevatedButton(
                         onPressed: () => fetchImage(source: ImageSource.camera),
                         style: ElevatedButton.styleFrom(
-                            textStyle: const TextStyle(fontSize: 30)),
+                            textStyle: const TextStyle(fontSize: 15)),
                         child: const Text('Capture Picture'),
                       )),
                   SizedBox(
-                      width: 250,
-                      height: 75,
+                      width: 150,
+                      height: 50,
                       child: IconButton(
                         icon: const Icon(Icons.navigate_next_rounded),
                         iconSize: 75,
@@ -101,7 +102,8 @@ class _ParkCameraState extends State<ParkCamera> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const AppBarMain()),
+                                  builder: (context) =>
+                                      SignTranslater(imageFile: imageFile)),
                             );
                           } else {
                             setState(() {
@@ -112,13 +114,13 @@ class _ParkCameraState extends State<ParkCamera> {
                         },
                       )),
                   SizedBox(
-                      width: 175,
-                      height: 75,
+                      width: 100,
+                      height: 50,
                       child: ElevatedButton(
                         onPressed: () =>
                             fetchImage(source: ImageSource.gallery),
                         style: ElevatedButton.styleFrom(
-                            textStyle: const TextStyle(fontSize: 30)),
+                            textStyle: const TextStyle(fontSize: 15)),
                         child: const Text('Select Picture'),
                       )),
                 ],
@@ -162,5 +164,30 @@ class _ParkCameraState extends State<ParkCamera> {
         );
       },
     );
+  }
+}
+
+// ignore: must_be_immutable
+class SignTranslater extends StatefulWidget {
+  File? imageFile;
+  SignTranslater({super.key, required this.imageFile});
+
+  @override
+  State<SignTranslater> createState() =>
+      // ignore: no_logic_in_create_state
+      _SignTranslaterState(imageFile: imageFile);
+}
+
+class _SignTranslaterState extends State<SignTranslater> {
+  File? imageFile;
+
+  _SignTranslaterState({required this.imageFile});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(title: const Text('Translated')),
+        body: (Image.file(imageFile!,
+            fit: BoxFit.contain, height: 580, width: 1080)));
   }
 }
