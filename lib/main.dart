@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
-import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:flutter_tesseract_ocr/flutter_tesseract_ocr.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() => runApp(const AppBarApp());
 
@@ -182,41 +182,22 @@ class SignTranslater extends StatefulWidget {
 
 class _SignTranslaterState extends State<SignTranslater> {
   File imageFile;
-
+  String imageText = ('');
   _SignTranslaterState({required this.imageFile});
 
-  late Future<String> translated = imageTranslaterMethod(imageFile);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Translated')),
-      body: (Image.file(imageFile,
-          fit: BoxFit.contain, height: 580, width: 1080)),
+      body: imageText = translateMethod(imageFile),
     );
   }
 
-  static Future<String> imageTranslaterMethod(File imageFile) async {
-    debugPrint('metod');
-    late final inputImage = InputImage.fromFile(imageFile);
-    final textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
-    final RecognizedText recognizedText =
-        await textRecognizer.processImage(inputImage);
-
-    String text = recognizedText.text;
-    for (TextBlock block in recognizedText.blocks) {
-      final Rect rect = block.rect;
-      final List<Offset> cornerPoints = block.cornerPoints;
-      final String text = block.text;
-      final List<String> languages = block.recognizedLanguages;
-
-      for (TextLine line in block.lines) {
-        // Same getters as TextBlock
-        for (TextElement element in line.elements) {
-          // Same getters as TextBlock
-        }
-      }
-    }
-
-    return ('hej');
+  translateMethod(imageFile) async {
+    debugPrint('entering translateMethod');
+    final translatedText =
+        await FlutterTesseractOcr.extractText(imageFile.path);
+    debugPrint(translatedText);
+    throw UnimplementedError();
   }
 }
