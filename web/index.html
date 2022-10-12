@@ -37,7 +37,22 @@
     var serviceWorkerVersion = null;
   </script>
   <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js" defer></script>
+  <script src='https://www.npmjs.com/package/tesseract.js/v/2.1.1' defer></script>
+  <script>
+    async function _extractText(imagePath , mapData){
+      var worker = Tesseract.createWorker();
+      await worker.load();
+      await worker.loadLanguage(mapData.language)
+      await worker.initialize(mapData.language)
+      await worker.setParameters(mapData.args)
+      var rtn = await worker.recognize(imagePath, {}, worker.id);
+      await worker.terminate();
+      if(mapData.args["tessjs_create_hocr"]){
+        return rtn.data.hocr;  
+      }
+      return rtn.data.text;
+    }
+  </script>
 </head>
 <body>
   <script>

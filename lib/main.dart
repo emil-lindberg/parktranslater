@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
 
 void main() => runApp(const AppBarApp());
 
@@ -103,7 +105,7 @@ class _ParkCameraState extends State<ParkCamera> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      SignTranslater(imageFile: imageFile)),
+                                      SignTranslater(imageFile: imageFile!)),
                             );
                           } else {
                             setState(() {
@@ -169,7 +171,7 @@ class _ParkCameraState extends State<ParkCamera> {
 
 // ignore: must_be_immutable
 class SignTranslater extends StatefulWidget {
-  File? imageFile;
+  File imageFile;
   SignTranslater({super.key, required this.imageFile});
 
   @override
@@ -179,15 +181,42 @@ class SignTranslater extends StatefulWidget {
 }
 
 class _SignTranslaterState extends State<SignTranslater> {
-  File? imageFile;
+  File imageFile;
 
   _SignTranslaterState({required this.imageFile});
 
+  late Future<String> translated = imageTranslaterMethod(imageFile);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Translated')),
-        body: (Image.file(imageFile!,
-            fit: BoxFit.contain, height: 580, width: 1080)));
+      appBar: AppBar(title: const Text('Translated')),
+      body: (Image.file(imageFile,
+          fit: BoxFit.contain, height: 580, width: 1080)),
+    );
+  }
+
+  static Future<String> imageTranslaterMethod(File imageFile) async {
+    debugPrint('metod');
+    late final inputImage = InputImage.fromFile(imageFile);
+    final textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
+    final RecognizedText recognizedText =
+        await textRecognizer.processImage(inputImage);
+
+    String text = recognizedText.text;
+    for (TextBlock block in recognizedText.blocks) {
+      final Rect rect = block.rect;
+      final List<Offset> cornerPoints = block.cornerPoints;
+      final String text = block.text;
+      final List<String> languages = block.recognizedLanguages;
+
+      for (TextLine line in block.lines) {
+        // Same getters as TextBlock
+        for (TextElement element in line.elements) {
+          // Same getters as TextBlock
+        }
+      }
+    }
+
+    return ('hej');
   }
 }
