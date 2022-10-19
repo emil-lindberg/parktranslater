@@ -186,7 +186,7 @@ class _SignTranslaterState extends State<SignTranslater> {
   _SignTranslaterState({required this.imageFile});
 
   @override
-  Widget build(BuildContext context) {
+  Future<Widget> FutureBuilder(BuildContext context) async {
     return Scaffold(
       appBar: AppBar(title: const Text('Translated')),
       body: imageText = translateMethod(imageFile),
