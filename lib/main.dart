@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_tesseract_ocr/flutter_tesseract_ocr.dart';
-import 'package:path_provider/path_provider.dart';
 
 void main() => runApp(const AppBarApp());
 
@@ -185,8 +184,7 @@ class _SignTranslaterState extends State<SignTranslater> {
   String imageText = ('');
   _SignTranslaterState({required this.imageFile});
 
-  @override
-  Future<Widget> FutureBuilder(BuildContext context) async {
+  Future<Widget> futureBuilder(BuildContext context) async {
     imageText = await translateMethod(imageFile);
     return Scaffold(
       appBar: AppBar(title: const Text('Translated')),
@@ -199,6 +197,11 @@ class _SignTranslaterState extends State<SignTranslater> {
     final translatedText =
         await FlutterTesseractOcr.extractText(imageFile.path);
     debugPrint(translatedText);
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     throw UnimplementedError();
   }
 }
