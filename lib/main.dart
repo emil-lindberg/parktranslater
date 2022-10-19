@@ -187,9 +187,10 @@ class _SignTranslaterState extends State<SignTranslater> {
 
   @override
   Future<Widget> FutureBuilder(BuildContext context) async {
+    imageText = await translateMethod(imageFile);
     return Scaffold(
       appBar: AppBar(title: const Text('Translated')),
-      body: imageText = translateMethod(imageFile),
+      body: Text(imageText),
     );
   }
 
