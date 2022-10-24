@@ -181,27 +181,25 @@ class SignTranslater extends StatefulWidget {
 
 class _SignTranslaterState extends State<SignTranslater> {
   File imageFile;
-  String imageText = ('');
   _SignTranslaterState({required this.imageFile});
-
-  Future<Widget> futureBuilder(BuildContext context) async {
-    imageText = await translateMethod(imageFile);
-    return Scaffold(
-      appBar: AppBar(title: const Text('Translated')),
-      body: Text(imageText),
-    );
-  }
-
-  translateMethod(imageFile) async {
-    debugPrint('entering translateMethod');
-    final translatedText =
-        await FlutterTesseractOcr.extractText(imageFile.path);
-    debugPrint(translatedText);
-    throw UnimplementedError();
-  }
+  String imageText = ('No Text');
 
   @override
-  Widget build(BuildContext context) {
-    throw UnimplementedError();
+  Widget build(Object context) {
+    translateMethod(imageFile, imageText);
+    return Scaffold(
+        appBar: AppBar(title: const Text('Translated')),
+        body: Center(
+            child: Text(
+          imageText,
+          style: const TextStyle(fontSize: 30),
+        )));
+  }
+
+  void translateMethod(imageFile, String imageText) async {
+    debugPrint('entering translateMethod');
+    imageText = await FlutterTesseractOcr.extractText(imageFile.path);
+    debugPrint(imageText);
+    setState(() => this.imageText = imageText);
   }
 }
