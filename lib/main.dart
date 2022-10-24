@@ -182,18 +182,28 @@ class SignTranslater extends StatefulWidget {
 class _SignTranslaterState extends State<SignTranslater> {
   File imageFile;
   _SignTranslaterState({required this.imageFile});
-  String imageText = ('No Text');
+  String imageText = ('');
 
   @override
   Widget build(Object context) {
-    translateMethod(imageFile, imageText);
-    return Scaffold(
-        appBar: AppBar(title: const Text('Translated')),
-        body: Center(
-            child: Text(
-          imageText,
-          style: const TextStyle(fontSize: 30),
-        )));
+    if (imageText == ('')) {
+      translateMethod(imageFile, imageText);
+      return Scaffold(
+          appBar: AppBar(title: const Text('Translated')),
+          body: const Center(
+              child: Text(
+            ('Loading...'),
+            style: TextStyle(fontSize: 30),
+          )));
+    } else {
+      return Scaffold(
+          appBar: AppBar(title: const Text('Translated')),
+          body: Center(
+              child: Text(
+            imageText,
+            style: const TextStyle(fontSize: 30),
+          )));
+    }
   }
 
   void translateMethod(imageFile, String imageText) async {
