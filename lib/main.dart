@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_tesseract_ocr/flutter_tesseract_ocr.dart';
@@ -183,18 +182,19 @@ class _SignTranslaterState extends State<SignTranslater> {
   File imageFile;
   _SignTranslaterState({required this.imageFile});
   String imageText = ('');
-
   @override
   Widget build(Object context) {
     if (imageText == ('')) {
       translateMethod(imageFile, imageText);
-      return Scaffold(
-          appBar: AppBar(title: const Text('Translated')),
-          body: const Center(
-              child: Text(
-            ('Loading...'),
-            style: TextStyle(fontSize: 30),
-          )));
+      return const Center(
+        child: SizedBox(
+          height: 150.0,
+          width: 150.0,
+          child: CircularProgressIndicator(
+            strokeWidth: 10,
+          ),
+        ),
+      );
     } else {
       return Scaffold(
           appBar: AppBar(title: const Text('Translated')),

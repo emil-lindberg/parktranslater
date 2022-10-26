@@ -39,6 +39,7 @@ dependencies:
   learning_text_recognition: ^0.0.4
   path_provider: ^2.0.11
   flutter_tesseract_ocr: ^0.4.20
+  overlay_loading_progress: ^1.0.0
 
 
 
