@@ -188,10 +188,10 @@ class _SignTranslaterState extends State<SignTranslater> {
       translateMethod(imageFile, imageText);
       return const Center(
         child: SizedBox(
-          height: 150.0,
-          width: 150.0,
+          height: 200.0,
+          width: 200.0,
           child: CircularProgressIndicator(
-            strokeWidth: 10,
+            strokeWidth: 5,
           ),
         ),
       );
@@ -212,4 +212,6 @@ class _SignTranslaterState extends State<SignTranslater> {
     debugPrint(imageText);
     setState(() => this.imageText = imageText);
   }
+
+  void interpretText(String imageText) {}
 }

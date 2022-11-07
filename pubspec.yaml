@@ -69,6 +69,7 @@ flutter:
   assets:
     - assets/tessdata_config.json
     - assets/tessdata/eng.traineddata
+    - assets/tessdata/swe.traineddata
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
