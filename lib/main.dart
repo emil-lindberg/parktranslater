@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_tesseract_ocr/flutter_tesseract_ocr.dart';
+import 'dart:convert';
 
 void main() => runApp(const AppBarApp());
 
@@ -211,7 +212,16 @@ class _SignTranslaterState extends State<SignTranslater> {
     imageText = await FlutterTesseractOcr.extractText(imageFile.path);
     debugPrint(imageText);
     setState(() => this.imageText = imageText);
+    interpretText(imageText);
   }
 
-  void interpretText(String imageText) {}
+  void interpretText(String imageText) {
+    const splitter = LineSplitter();
+    int numberOfLines = 0;
+    final imageTextLines = splitter.convert(imageText);
+    for (var i = 0; i < imageTextLines.length; i++) {
+      numberOfLines = i;
+      debugPrint("Line: $numberOfLines ${imageTextLines[i]}");
+    }
+  }
 }
