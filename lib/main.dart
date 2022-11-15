@@ -204,14 +204,16 @@ class _SignTranslaterState extends State<SignTranslater> {
         numberOfLines = i;
         debugPrint("Line: $numberOfLines ${imageTextLines[i]}");
       }
-      
       return Scaffold(
           appBar: AppBar(title: const Text('Translated')),
           body: Center(
-              child: Text(
-            imageText,
-            style: const TextStyle(fontSize: 30),
-          )));
+              child: Column(children: [
+            SizedBox(
+                child: Text(
+              ("Du får parkera mellan: $imageTextLines[0]"),
+              style: const TextStyle(fontSize: 30),
+            )),
+          ])));
     }
   }
 
