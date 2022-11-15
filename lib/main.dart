@@ -183,6 +183,7 @@ class _SignTranslaterState extends State<SignTranslater> {
   File imageFile;
   _SignTranslaterState({required this.imageFile});
   String imageText = ('');
+
   @override
   Widget build(Object context) {
     if (imageText == ('')) {
@@ -197,6 +198,13 @@ class _SignTranslaterState extends State<SignTranslater> {
         ),
       );
     } else {
+      int numberOfLines = 0;
+      final imageTextLines = interpretText(imageText);
+      for (var i = 0; i < imageTextLines.length; i++) {
+        numberOfLines = i;
+        debugPrint("Line: $numberOfLines ${imageTextLines[i]}");
+      }
+      
       return Scaffold(
           appBar: AppBar(title: const Text('Translated')),
           body: Center(
@@ -212,16 +220,22 @@ class _SignTranslaterState extends State<SignTranslater> {
     imageText = await FlutterTesseractOcr.extractText(imageFile.path);
     debugPrint(imageText);
     setState(() => this.imageText = imageText);
-    interpretText(imageText);
   }
 
-  void interpretText(String imageText) {
+  List<String> interpretText(String imageText) {
     const splitter = LineSplitter();
     int numberOfLines = 0;
     final imageTextLines = splitter.convert(imageText);
+    /*
     for (var i = 0; i < imageTextLines.length; i++) {
       numberOfLines = i;
       debugPrint("Line: $numberOfLines ${imageTextLines[i]}");
     }
+    */
+    //when = imageTextLines[0];
+    //weekday = imageTextLines[1];
+    //weekend = imageTextLines[2];
+    //redday = imageTextLines[3];
+    return imageTextLines;
   }
 }
