@@ -210,9 +210,18 @@ class _SignTranslaterState extends State<SignTranslater> {
               child: Column(children: [
             SizedBox(
                 child: Text(
-              ("Du får parkera mellan: $imageTextLines[0]"),
+              ("Du får parkera mellan: ${imageTextLines[0]} "),
               style: const TextStyle(fontSize: 30),
             )),
+            SizedBox(
+                child: Text(
+              ("Parkering gäller mellan kl: ${imageTextLines[1]} på vardagar."),
+              style: const TextStyle(fontSize: 30),
+            )),
+            SizedBox(
+              child: Text(
+                  "På helgdagar så får du stå mellan kl: ${imageTextLines[2]}"),
+            )
           ])));
     }
   }
@@ -226,7 +235,7 @@ class _SignTranslaterState extends State<SignTranslater> {
 
   List<String> interpretText(String imageText) {
     const splitter = LineSplitter();
-    int numberOfLines = 0;
+    //int numberOfLines = 0;
     final imageTextLines = splitter.convert(imageText);
     /*
     for (var i = 0; i < imageTextLines.length; i++) {
