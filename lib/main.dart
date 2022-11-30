@@ -204,25 +204,46 @@ class _SignTranslaterState extends State<SignTranslater> {
         numberOfLines = i;
         debugPrint("Line: $numberOfLines ${imageTextLines[i]}");
       }
+      var datetime = DateTime.now();
       return Scaffold(
           appBar: AppBar(title: const Text('Translated')),
           body: Center(
-              child: Column(children: [
-            SizedBox(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                  child: Text(
+                ("Du får parkera mellan:\n ${imageTextLines[0]} \n"),
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                    fontSize: 30,
+                    fontFamily: "Kantic",
+                    fontWeight: FontWeight.bold),
+              )),
+              SizedBox(
+                  child: Text(
+                ("Parkering gäller mellan kl:\n ${imageTextLines[1]} på vardagar.\n"),
+                textAlign: TextAlign.center,
+                style:
+                    const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              )),
+              SizedBox(
                 child: Text(
-              ("Du får parkera mellan: ${imageTextLines[0]} "),
-              style: const TextStyle(fontSize: 30),
-            )),
-            SizedBox(
-                child: Text(
-              ("Parkering gäller mellan kl: ${imageTextLines[1]} på vardagar."),
-              style: const TextStyle(fontSize: 30),
-            )),
-            SizedBox(
-              child: Text(
-                  "På helgdagar så får du stå mellan kl: ${imageTextLines[2]}"),
-            )
-          ])));
+                    ("Parkering gäller mellan kl:\n ${imageTextLines[2]} på helger.\n"),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontSize: 30,
+                        color: Color.fromARGB(255, 231, 25, 25),
+                        fontWeight: FontWeight.bold)),
+              ),
+              SizedBox(
+                child: Text(("Klockan är ${datetime.hour}:${datetime.minute}"),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontSize: 30, fontWeight: FontWeight.bold)),
+              ),
+            ],
+          )));
     }
   }
 
