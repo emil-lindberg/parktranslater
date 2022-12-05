@@ -256,14 +256,7 @@ class _SignTranslaterState extends State<SignTranslater> {
 
   List<String> interpretText(String imageText) {
     const splitter = LineSplitter();
-    //int numberOfLines = 0;
     final imageTextLines = splitter.convert(imageText);
-    /*
-    for (var i = 0; i < imageTextLines.length; i++) {
-      numberOfLines = i;
-      debugPrint("Line: $numberOfLines ${imageTextLines[i]}");
-    }
-    */
     //when = imageTextLines[0];
     //weekday = imageTextLines[1];
     //weekend = imageTextLines[2];
